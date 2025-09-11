@@ -1,20 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MKF-ECG Analyzer</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MKF-ECG — High-Precision JS Analyzer</title>
+
+  <!-- Chart.js for plotting -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>MKF-ECG Analyzer</h1>
-        <input type="file" id="ecgFile" accept=".csv">
+  <div class="app">
+    <header>
+      <h1>MKF-ECG Analyzer (no TensorFlow)</h1>
+      <p class="muted">Client-side signal processing: bandpass → derivative → squaring → integration → adaptive peaks → HRV & rules.</p>
+    </header>
+
+    <main>
+      <div class="controls">
+        <label>Upload ECG CSV (single column of samples):</label>
+        <input id="ecgFile" type="file" accept=".csv" />
+
+        <label>Sampling rate (Hz)</label>
+        <input id="fs" type="number" value="250" min="50" max="2000"/>
+
+        <label>Window length for analysis (seconds)</label>
+        <input id="winLen" type="number" value="30" min="3" max="600"/>
+
         <button id="analyzeBtn">Analyze ECG</button>
-        <div id="output"></div>
-        <canvas id="ecgChart"></canvas>
-    </div>
-    <script src="script.js"></script>
+      </div>
+
+      <section class="results">
+        <div class="card">
+          <h3>Summary</h3>
+          <div id="summary">No analysis yet.</div>
+        </div>
+
+        <div class="card">
+          <h3>Metrics</h3>
+          <table id="metrics">
+            <tr><td>Heart rate (bpm)</td><td id="hr">--</td></tr>
+            <tr><td>Beats detected</td><td id="beats">--</td></tr>
+            <tr><td>SDNN (s)</td><td id="sdnn">--</td></tr>
+            <tr><td>RMSSD (s)</td><td id="rmssd">--</td></tr>
+            <tr><td>pNN50 (%)</td><td id="pnn50">--</td></tr>
+            <tr><td>Mean RR (s)</td><td id="meanRR">--</td></tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="plots">
+        <div class="card plot-card">
+          <h3>ECG trace (filtered) with R-peaks</h3>
+          <canvas id="ecgChart" height="180"></canvas>
+        </div>
+
+        <div class="card plot-card">
+          <h3>RR intervals histogram</h3>
+          <canvas id="rrChart" height="180"></canvas>
+        </div>
+      </section>
+
+      <footer class="disclaimer">
+        <strong>Disclaimer:</strong> This tool is for demonstration/educational use only. Not a medical device. Confirm results clinically.
+      </footer>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
