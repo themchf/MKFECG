@@ -1,36 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MKF-ECG</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MKF-ECG Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <header>
-    <h1>MKF-ECG Analyzer</h1>
-    <p>Upload your ECG signal and get instant feedback.</p>
-  </header>
-
-  <main>
-    <div class="upload-section">
-      <label for="ecgFile" class="upload-label">Choose ECG File</label>
-      <input type="file" id="ecgFile" accept=".csv,.txt,.json">
-      <button id="analyzeBtn">Analyze ECG</button>
+    <div class="container">
+        <h1>MKF-ECG Analyzer</h1>
+        <input type="file" id="ecgFile" accept=".csv">
+        <button id="analyzeBtn">Analyze ECG</button>
+        <div id="output"></div>
+        <canvas id="ecgChart"></canvas>
     </div>
-
-    <div class="result-section">
-      <h2>Result</h2>
-      <p id="resultText">No ECG uploaded yet.</p>
-    </div>
-
-    <canvas id="ecgCanvas"></canvas>
-  </main>
-
-  <footer>
-    <p>MKF-ECG © 2025 | Prototype</p>
-  </footer>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
